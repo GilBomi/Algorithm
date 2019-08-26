@@ -34,13 +34,18 @@ public class Main {
 				continue;
 			visited[vertex]=true;
 			min=distance;
-			if(vertex==end) {
-				System.out.println("답:"+vertex);
+			if(vertex==end) 
 				return min;	
-			}
-			if(start-1<0) {
+			if(vertex-1<0) {
 				queue.add(new Node(vertex+1,distance+1));
 				queue.add(new Node(vertex*2,distance+1));
+			}
+			else if(vertex+1>100000)  {
+				queue.add(new Node(vertex-1,distance+1));	
+			}
+			else if(vertex*2>100000) {
+				queue.add(new Node(vertex-1,distance+1));
+				queue.add(new Node(vertex+1,distance+1));
 			}
 			else {
 				queue.add(new Node(vertex-1,distance+1));
