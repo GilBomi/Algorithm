@@ -64,8 +64,5 @@ public class Main {
 		Arrays.fill(visited, false);
 		int min=bfs(n,m);
 		System.out.println(min);
-
-
-
 	}
 }
