@@ -46,6 +46,8 @@ public class Main {
 			queue.add(new Node(n,m-1,distance+1));
 			queue.add(new Node(n+1,m,distance+1));
 			queue.add(new Node(n,m+1,distance+1));
+			ArrayDeque<Integer> queue1=new ArrayDeque<>();
+			
 		}
 		return -1;
 	}
