@@ -3,110 +3,131 @@ package no1573;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.TreeSet;
 
 public class Main {
 	static Set<String> set;
+	static Set<String> result;
 	static int n;
+	static List<Link> visited;
+	static int index;
+
 	
-	static class Link {
+	static class Link implements Cloneable{
 		String 알파벳;
 		int distance;
-		Link lLink,rLink;
-		
-		public Link(String 알파벳) {
-			this.알파벳=알파벳;
-		}
-		public Link(String 알파벳,int distance) {
-			this.알파벳=알파벳;
-			this.distance=distance;
-		}
-		public Link(String 알파벳,Link l,Link r,int distance) {
-			this.알파벳=알파벳;
-			this.lLink=l;
-			this.rLink=r;
-			this.distance=distance;
-		}
-		public void add(String a) {
-			if(알파벳.compareTo(a)>0) {
-				if(lLink!=null) 
-					lLink.add(a);
-				else
-					lLink=new Link(a);
-			} else if(알파벳.compareTo(a)<0) {
-				if(rLink!=null) 
-					rLink.add(a);
-				else
-					rLink=new Link(a);
-			}
+		Link lLink, rLink;
+		String w="";
+
+		public Link() {
 			
 		}
-		public void print() { // 프리오더 출력
-			System.out.print(this.알파벳);
-			lLink.print();
-			rLink.print();
+		public Link(String 알파벳) {
+			this.알파벳 = 알파벳;
 		}
-		public Link 리턴() {
-			return this;
+
+		public Link(String 알파벳, int distance) {
+			this.알파벳 = 알파벳;
+			this.distance = distance;
+		}
+//		public Link copyLink(Link root) {
+//			if(root==null)
+//				return null;
+//			else {
+//				Link k=new Link(root.알파벳);
+//				k.lLink=copyLink(root.lLink);
+//				k.rLink=copyLink(root.rLink);
+//				return k;
+//			}
+//		}
+
+
+		public void add(String a) {
+			if (알파벳.compareTo(a)>0) {
+                if (lLink == null) lLink = new Link(a);
+                else lLink.add(a);
+            } else if (알파벳.compareTo(a)<0) {
+            	if (rLink == null) rLink = new Link(a);
+                else rLink.add(a);
+            }
+		}
+
+		public String print() { // 프리오더 출력
+			w="";
+			w+=알파벳;
+			//System.out.println(알파벳);
+			if (lLink != null)
+				w+=lLink.print();
+			if (rLink != null)
+				w+=rLink.print();
+			return w;
+		}
+		
+		@Override
+		public Object clone() throws CloneNotSupportedException { // public 으로 바꿔주자.
+			return super.clone();
 		}
 	}
+
 	public static void dijkstra(String start) {
-		PriorityQueue<Link> queue=new PriorityQueue<>((s1,s2)->s1.알파벳.compareTo(s2.알파벳));
-		Link root=new Link(start,1);
+		PriorityQueue<Link> queue = new PriorityQueue<>((s1, s2) -> s1.알파벳.compareTo(s2.알파벳));
+		Link root = new Link(start, 1);
 		queue.add(root);
-		while(queue.size()>0) {
-			Link c=queue.remove();
-			String 알파벳=c.알파벳;
-			int distance=c.distance;
-			if((int)(알파벳.charAt(0))<97 || (int)(알파벳.charAt(0))>97+n)
+		int 반복=0;
+		while (queue.size() > 0) {
+			Link c = queue.remove();
+			String 알파벳 = c.알파벳;
+			int distance = c.distance;
+			String w=c.w;
+			
+			if ((int) (알파벳.charAt(0)) < 97 || (int) (알파벳.charAt(0)) > 97 + n)
 				continue;
-//			if(visited[(int)(알파벳.charAt(0)-97)])
-//				continue;
-			if(distance==n) {
-				root.print();
-				System.out.println();
+			if (set.contains(c.w))
+				continue;
+			set.add(c.w);
+			if(c.w.length()==4) {
+				result.add(w);
 			}
-			if(set.size()==n) {
-				System.out.println("끝");
-				return;
-			}
-			System.out.println("알파벳:"+알파벳);
-//			visited[(int)(알파벳.charAt(0)-97)]=true;		
+			Link[] list = new Link[n];
 			for(int i=0;i<n;i++) {
-				Link[] list=new Link[n];
-				Arrays.fill(list, c);
-				
-				list[i].add(Character.toString((char)('a'+i)));
+				try {
+					list[i]=(Link)c.clone();
+				} catch (CloneNotSupportedException e) {
+					e.printStackTrace();
+				}
+			}
+			System.out.println("반복:"+반복++);
+			System.out.println("원래:"+c.print());
+			for (int i = 0; i < n; i++) {
+				System.out.println("i:"+i);
+				list[i].add(Character.toString((char) ('a' + i)));
+				System.out.print("c:"+list[i].print());
+				System.out.println();
 				queue.add(list[i]);
 			}
-			
-			
+			System.out.println("이후:"+c.print());
 		}
-		
+
 	}
+
 	public static void main(String[] args) throws NumberFormatException, IOException {
-		BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer token=new StringTokenizer(reader.readLine());
-		n=Integer.parseInt(token.nextToken());
-		int Index=Integer.parseInt(token.nextToken());
-//		visited=new boolean[n];
-//		Arrays.fill(visited, false);
-		set=new HashSet<>();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer token = new StringTokenizer(reader.readLine());
+		n = Integer.parseInt(token.nextToken());
+		index = Integer.parseInt(token.nextToken());
+
+		set = new HashSet<>();
+		result = new HashSet<>();
+		visited = new ArrayList<>();
 		dijkstra("a");
-		
-		String k="a";
-		System.out.println((char)(k.charAt(0)+1));
-		System.out.println((int)(k.charAt(0)));
-		System.out.println(('a'+1));
-		System.out.println((int)('z'));
-//		System.out.println((char)('a'+3));
-		System.out.println("a".compareTo("a"));
-		
+		for(String i:result)
+			System.out.println(i);
 
 	}
 }
