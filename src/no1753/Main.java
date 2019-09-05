@@ -13,6 +13,7 @@ public class Main {
 	static List<Node>[] list;
 	static boolean[] visited;
 	static int start;
+	static int 거리[];
 
 	static class Node {
 		int index;
@@ -22,25 +23,23 @@ public class Main {
 			this.가중치=가중치;
 		}
 	}
-	public static int dijkstra(int end) {
+	public static void dijkstra(int start) {
 		PriorityQueue<Node> queue=new PriorityQueue<>((s1,s2)->s1.가중치-s2.가중치);
 		queue.add(new Node(start,0));
-		int min=0;
+		
 		while(queue.size()>0) {
 			Node c=queue.remove();
 			int index=c.index;
 			int 가중치=c.가중치;
 			if(visited[index])
 				continue;
+			if(거리[index]>가중치)
+				거리[index]=가중치;
 			visited[index]=true;
-			min=가중치;
-			if(index==end) 
-				return min;
 			for(Node p:list[index]) {
 				queue.add(new Node(p.index,가중치+p.가중치));
 			}
 		}
-		return -1;
 	}
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -50,6 +49,8 @@ public class Main {
 		start=Integer.parseInt(reader.readLine())-1;
 		list=new ArrayList[정점];
 		visited=new boolean[정점];
+		거리=new int[정점];
+		Arrays.fill(거리, Integer.MAX_VALUE);
 		for (int i = 0; i < 정점; ++i)
 			list[i] = new ArrayList<>();
 		for(int i=0;i<간선;i++) {
@@ -59,13 +60,14 @@ public class Main {
 			int 가중치=Integer.parseInt(token.nextToken());
 			list[m1].add(new Node(m2,가중치));
 		}
+		dijkstra(start);
 		for(int i=0;i<정점;i++) {
 			Arrays.fill(visited, false);
-			int result=dijkstra(i);
-			if(result==-1)
+//			int result=dijkstra(i);
+			if(거리[i]==Integer.MAX_VALUE)
 				System.out.println("INF");
 			else
-				System.out.println(result);
+				System.out.println(거리[i]);
 		}
 
 	}
