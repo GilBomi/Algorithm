@@ -12,16 +12,11 @@ import java.util.StringTokenizer;
 public class Main {
 	static List<Node>[] list;
 	static boolean[] visited;
-	static String 최단거리에서이동한모든경로;
+	
 	static class Node {
 		int vertex;
 		int distance;
-		String 이동한모든경로 ;
-		public Node(int vertex, int distance,String 이동한모든경로 ) {
-			this.vertex = vertex;
-			this.distance = distance;
-			this.이동한모든경로 =이동한모든경로 ;
-		}
+
 		public Node(int vertex, int distance) {
 			this.vertex = vertex;
 			this.distance = distance;
@@ -30,23 +25,19 @@ public class Main {
 
 	public static int dijkstra(int start, int end) {
 		PriorityQueue<Node> queue = new PriorityQueue<>((s1, s2) -> s1.distance - s2.distance);
-		queue.add(new Node(start, 0,Integer.toString(start)));
+		queue.add(new Node(start, 0));
 		visited = new boolean[list.length];
 		while (queue.size() > 0) {
 			Node c = queue.remove();
 			int vertex = c.vertex;
 			int distance = c.distance;
-			String 이동한모든경로 =c.이동한모든경로 ;
 			if (visited[vertex]) 
 				continue;
-			//System.out.println("fff:"+fff);
-			if (end == vertex) {
-				최단거리에서이동한모든경로=이동한모든경로;
+			if (end == vertex) 
 				return distance;
-			}
 			visited[vertex] = true;
 			for (Node p : list[vertex])
-				queue.add(new Node(p.vertex, p.distance + distance,이동한모든경로 +p.vertex));
+				queue.add(new Node(p.vertex, p.distance + distance));
 		}
 		return -1;
 	}
@@ -80,14 +71,15 @@ public class Main {
 			for (int k = 0; k < 목적지개수; k++) {
 				int 후보 = Integer.parseInt(reader.readLine()) - 1;
 				int result = dijkstra(출발지, 후보);
-				String 최단거리경로=최단거리에서이동한모든경로;
-				//System.out.println("최단거리경로:"+최단거리경로);
-				
-				String gh=Integer.toString(g)+h;
-				StringBuilder builder=new StringBuilder(gh);
-				if(최단거리경로.contains(gh) || 최단거리경로.contains(builder.reverse().toString())) {
-					list2.add(후보+1);
+				int gh길이=0;
+				for(int r=0;r<list[g].size();r++) {
+					if(list[g].get(r).vertex==h)
+						gh길이=list[g].get(r).distance;
 				}
+				int d1=dijkstra(출발지,g)+gh길이+dijkstra(h,후보);
+				int d2=dijkstra(출발지,h)+gh길이+dijkstra(g,후보);
+				if(result==d1 || result==d2)
+					list2.add(후보+1);
 			}
 			Collections.sort(list2);
 			for (int e : list2)
