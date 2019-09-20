@@ -3,8 +3,7 @@ package no1158;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.ListIterator;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -13,22 +12,22 @@ public class Main {
 		StringTokenizer token=new StringTokenizer(reader.readLine());
 		int n=Integer.parseInt(token.nextToken());
 		int k=Integer.parseInt(token.nextToken());
-		LinkedList<Integer> list=new LinkedList<>();
+		ArrayList<Integer> list=new ArrayList<>();
 		for(int i=1;i<=n;i++)
 			list.add(i);
 		String result="<";
-		int index=k-1;
+		int index=0;
 		
 		while(true) {
 			if(list.size()==0)
 				break;
-			if(index>=list.size())	
-				index=index%list.size();
-			result+=list.remove(index);
-			result+=",";
 			index+=k-1;
+			if(index>=list.size())	
+				index%=list.size();
+			result+=list.remove(index);
+			result+=", ";
 		}
-		System.out.println(result.substring(0,result.length()-1)+">");
+		System.out.println(result.substring(0,result.length()-2)+">");
 
 	}
 }
