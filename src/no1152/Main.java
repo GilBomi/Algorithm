@@ -1,5 +1,4 @@
-package no2941;
-
+package no1152;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,16 +11,15 @@ public class Main {
 		// TODO Auto-generated constructor stub
 		BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
 		String s=reader.readLine();
-
-		String[] cro= {"c=","c-","dz=","d-","lj","nj","s=","z="};
-		
-		int i=0;
-		while(i<8) {
-			if(s.contains(cro[i])) {
-				s=s.replace(cro[i], "*");
-			} else 
-				i++;
+		s=s.trim();
+		String[] a=s.split(" ");
+		if(a.length==1) {
+			if(a[0].equals("")) {
+				System.out.println("0");
+				return;
+			} 
 		}
-		System.out.println(s.length());
+		System.out.println(a.length);
+		
 	}
 }

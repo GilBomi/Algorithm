@@ -1,4 +1,4 @@
-package no2941;
+package no11719;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,17 +11,12 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated constructor stub
 		BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
-		String s=reader.readLine();
-
-		String[] cro= {"c=","c-","dz=","d-","lj","nj","s=","z="};
-		
-		int i=0;
-		while(i<8) {
-			if(s.contains(cro[i])) {
-				s=s.replace(cro[i], "*");
-			} else 
-				i++;
+		while(true) {
+			String n=reader.readLine();
+			if(n==null)
+				return;
+			System.out.println(n);
 		}
-		System.out.println(s.length());
+
 	}
 }
