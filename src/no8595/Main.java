@@ -21,7 +21,7 @@ public class Main {
 				num+=a;
 			} else {
 				if(num.length()!=0) {
-					sum+=long.parseLong(num);
+					sum+=Long.parseLong(num);
 					num="";
 				}
 			}
