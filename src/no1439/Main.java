@@ -13,12 +13,12 @@ public class Main {
 		int num_zero=0,num_one=0;
 		char prev=a[0];
 		if(prev=='0')
-			num_one++;
-		else
 			num_zero++;
+		else
+			num_one++;
 		for(int i=0;i<a.length;i++) {
 			if(prev!=a[i]) {
-				if(prev=='0') {
+				if(a[i]=='0') {
 					num_zero++;
 				} else {
 					num_one++;
@@ -26,7 +26,6 @@ public class Main {
 				prev=a[i];
 			}
 		}
-		System.out.println(num_zero+" "+num_one);
 		System.out.println(Math.min(num_zero, num_one));
 	}
 }
