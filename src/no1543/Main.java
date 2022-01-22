@@ -18,13 +18,11 @@ public class Main {
 		
 		int sum=0;
 		int i=0;
-		while(i<=a.length()) {
-			int p=a.indexOf(s,i==0?0:i-1);
-			System.out.println("p:"+p);
+		while(i<a.length()) {
+			int p=a.indexOf(s,i);
 			if(p==-1)
 				break;
-			i=p+s.length()+1;
-			System.out.println("i:"+i);
+			i=p+s.length();
 			sum++;
 		}
 		System.out.println(sum);
