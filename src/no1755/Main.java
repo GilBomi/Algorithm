@@ -27,6 +27,7 @@ public class Main {
 				for(int k=0;k<2;k++) {
 					
 				}
+				result[j++]=r;
 			} else { // 1~9일때
 				result[j++]=alpha[i];
 			}
