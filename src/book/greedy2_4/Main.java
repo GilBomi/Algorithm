@@ -1,5 +1,5 @@
-// 숫자 카드 게임
-package book.greedy2_3;
+// 1이 될떄까지
+package book.greedy2_4;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,17 +10,19 @@ public class Main {
 		BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
 		String[] a=reader.readLine().split(" ");
 		int N=Integer.parseInt(a[0]);
-		int M=Integer.parseInt(a[1]);
-		int max=0;
+		int K=Integer.parseInt(a[1]);
 		
-		for(int i=0;i<N;i++) {
-			int min=Integer.MAX_VALUE;
-			String[] card=reader.readLine().split(" ");
-			for(int j=0;j<card.length;j++) {
-				min=Math.min(Integer.parseInt(card[j]),min);
+		int n=0;
+		while(N!=1) {
+			if(N%K==0) {
+				N/=K;
+			} else {
+				N-=1;
 			}
-			max=Math.max(min, max);
+			System.out.println("N:"+N);
+			n++;
 		}
-		System.out.println(max);
+		System.out.println(n);
+		
 	}
 }

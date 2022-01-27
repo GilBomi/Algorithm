@@ -1,3 +1,4 @@
+// 큰 수의 법칙
 package book.greedy2_2;
 
 import java.io.BufferedReader;
@@ -16,6 +17,8 @@ public class Main {
 		String[] s=reader.readLine().split(" ");
 		Arrays.sort(s);
 		int sum=0;
+		
+		
 		while(true) {
 			for(int i=0;i<K;i++) {
 				if(M==0) {
