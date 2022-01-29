@@ -9,7 +9,15 @@ import java.util.Arrays;
 public class Main {
 	public static void main(String[] args) throws IOException {
 		BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
-		char[] s=reader.readLine().toCharArray();
-		
+		int n=Integer.parseInt(reader.readLine());
+		String[] a=reader.readLine().split(" ");
+		Arrays.sort(a);
+		int answer=1;
+		for(int i=0;i<a.length;i++) {
+			if(answer<Integer.parseInt(a[i]))
+				break;
+			answer+=Integer.parseInt(a[i]);
+		}
+		System.out.println(answer);
 	}
 }
