@@ -15,6 +15,7 @@ for r,d,c in b:
             for i in range(c):
                 a[r-1].insert(0,a[r-1].pop())
 
+print(a)
 lt,rt=0,n
 sum=0
 for i in range(n):
