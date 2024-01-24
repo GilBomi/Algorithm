@@ -8,7 +8,7 @@ cnt=0
 for i in range(len(a)):
     if a[i]=='(':
         stack.append(a[i])
-    elif a[i-1]=='(':
+    elif a[i-1]=='(': # and a[i]==')'
         stack.pop() 
         cnt+=len(stack)
     else: # a[i-1]==')'
