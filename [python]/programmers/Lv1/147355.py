@@ -9,8 +9,6 @@ def solution(t, p):
             num+=t[i+j]
         if int(num)<=int(p):
             answer+=1
-
-
     return answer
 
 if __name__=="__main__":
