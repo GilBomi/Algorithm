@@ -21,7 +21,7 @@ def solution(numbers):
     numbers.sort(key=cmp_to_key(compare))
     numbers=list(map(str,numbers))
     print(''.join(numbers))
-    return answer
+    return int(''.join(numbers))
 
 if __name__=="__main__":
     print(solution([6, 10, 2]))

@@ -1,5 +1,7 @@
 from collections import deque
 
+
+# 미완
 def solution(name):
     answer = 0
     if all(x=='A' for x in name):

@@ -7,7 +7,6 @@ def solution(word):
     def dfs(w):
         nonlocal answer,depth
         if len(w)>5:
-            print('out:',w)
             return
         if w==word:
             answer=depth
